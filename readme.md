@@ -147,5 +147,12 @@ computed: {
 * `inline-template`
 * Devtools
 
-## Bonus demo
-[Demo] (http://codepen.io/demotime/pen/VpVGZp)
+## Bonus examples
+* [List rendering](http://codepen.io/demotime/pen/YZRvJo)  
+  * loop through an array to render a list
+  * add and remove items from the list
+
+* [Movie search](http://codepen.io/demotime/pen/VpVGZp)
+  * Fetch movies from [themoviedb.org](https://www.themoviedb.org)
+  * Render results in a list
+  * Load details for a movie
