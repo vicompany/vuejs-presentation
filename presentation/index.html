@@ -1,0 +1,361 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Introduction to VueJS</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/league.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h3>Introduction to</h3>
+					<h1>VueJS</h1>
+
+					<p>
+						<small>Pim van Die, <a href="https://www.vicompany.nl/" target="_blank">VI Company</a></small>
+					</p>
+				</section>
+				<section>
+					<h2>Topics</h2>
+					<section>
+						<ul>
+							<li>Intro</li>
+							<li>What</li>
+							<li>Why</li>
+						</ul>
+					</section>
+
+					<section>
+						<ul>
+							<li>Vue instance</li>
+							<li>
+								Components
+								<ul>
+									<li>Global registration</li>
+									<li>Local registration</li>
+								</ul>
+							</li>
+						</ul>
+					</section>
+
+					<section>
+						<ul>
+							<li>
+								Data
+								<ul>
+									<li>Props &amp; data</li>
+									<li>Computed</li>
+									<li>Watchers</li>
+								</ul>
+							</li>
+							<li>Bindings</li>
+						</ul>
+					</section>
+					
+					<section>
+						<ul>
+							<li>Tips &amp; tricks</li>
+							<li>Bonus examples</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h2>Intro</h2>
+
+					<ul>
+						<li>Basics of <code>Vue</code> 🚀</li>
+						<li>Not using <cod>.vue</code> files</li>
+						<li>using existing DOM as templates</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>What</h2>
+					<section>
+						<a href="https://vuejs.org/v2/guide/index.html">From the docs: </a>
+
+						<blockquote>
+							Vue is a progressive framework for building user interfaces.  
+						</blockquote>
+					</section>
+
+					<section>
+						<ul>
+							<li>Binds data / states to the DOM</li>
+							<li class="fragment">Reactive: data changes > DOM changes</li>
+							<li class="fragment">A Vue instance/component works like a (view)model. Populating and mutating its own data.</li>
+							<li class="fragment">The attached DOM reacts accordingly. </li>
+						</ul>
+					</section>
+					
+				</section>
+				<section>
+					<h2>Why</h2>
+
+					<ul>
+						<li>Fast <small><a href="https://vuejs.org/v2/guide/comparison.html" target="_blank">comparison</a></small></li>
+						<li class="fragment">Easy to learn</li>
+						<li class="fragment">Easy to write (no `.jsx`, although you can use `.vue`)</li>
+						<li class="fragment">Easy to install</li>
+						<li class="fragment">Detailed, clean and understandable docs</li>
+						<li class="fragment">No one million thousand dependencies</li>
+					</ul>
+					
+				</section>
+
+				<section>
+					<h2>Vue instance</h2>
+
+					<ul>
+						<li>An application is started with one Vue instance.</li>
+						<li class="fragment">
+							Often refered as the <code>vm</code>, for view model <br /> 
+							<small>(remember, depending on the view model, the DOM is manipulated).</small>	
+						</li>
+						<li class="fragment">only one instance should be needed per page</li>
+					</ul>
+
+					<p class="fragment">
+						<a href="http://codepen.io/demotime/pen/yMQKaE" target="_blank">Demo: My first VueJS instance</a>
+					</p>
+				</section>
+
+				<section>
+					<h2>Components</h2>
+				
+					<section>
+						<a href="https://vuejs.org/v2/guide/components.html" target="_blank">From the docs:</a>
+						<blockquote><p> a high level, components are custom elements that Vue’s compiler attaches behavior to</p></blockquote>
+					</section>
+
+					<section>
+						<ul>
+							<li>Components live inside a <code>Vue</code> instance</li>
+							<li class="fragment">Create your own tag</li>
+							<li class="fragment">
+								Components are reusable <br />
+								<small>(also inside the same instance)</small>
+							</li>
+
+							<li class="fragment">
+								<a href="http://codepen.io/demotime/pen/gmQedx" target="_blank">Demo</a>
+							</li>
+						</ul>
+					</section>
+
+					<section>
+						<h3>Global registration</h3>
+						<ul>
+							<li>Registrate global to use it anywhere in the <code>Vue</code> instance</li>
+							<li>No need to let the instance know which components are used</li>
+						</ul>
+					</section>
+
+					<section>
+						<h3>Global registration</h3>
+						<pre><code class="javascript" data-trim contenteditable>
+							Vue.component('my-custom-component', { 
+							  mounted() {
+							    //
+							  },
+							});
+					</code></pre>
+					</section>
+
+					<section>
+						<h3>Local registration</h3>
+						<ul>
+							<li>Only create a config object, aka the definition</li>
+							<li>Make the component only available in the scope of another instance / component</li>
+						</ul>
+						<p>
+							<small><a href="https://vuejs.org/v2/guide/components.html#Local-Registration" target="_blank">Docs</a></small>
+						</p>
+					</section>
+
+					<section>
+						<h3>Local registration</h3>
+						
+						<pre><code class="javascript" data-trim contenteditable>
+							// component definition
+							const myComponent = {
+							  mounted() {
+							    //
+							  },
+							};
+
+							// usage in an instance
+							new Vue({
+							  components: {
+							    my-custom-component': myComponent,
+							  },
+							});
+					</code></pre>
+						<a href="http://codepen.io/demotime/pen/gmQedx" target="_blank">Demo</a>
+					</section>
+				</section>
+				
+				<section>
+					<h2>Props &amp; data</h2>
+
+					<section>
+						<ul>
+							<li>The core of a <code>Vue</code> instance / component</li>
+							<li>Two different purposes</li>
+
+							<li><a href="http://codepen.io/demotime/pen/dvQedZ" target="_blank">Demo data &amp; props</a></li>
+						</ul>
+					</section>
+
+					<section>
+						<h3>Data</h3>
+
+						<ul>
+							<li>Scoped to the component</li>
+							<li>Should not be altered from outside the component</li>
+							<li>Can't receive data from parent</li>
+							<li>Can pass data to child components</li>
+						</ul>
+					</section>
+
+					<section>
+						<h3>Props 1/2</h3>
+						<ul>
+							<li>VueJS uses one way data flow, from parent to child</li>
+							<li>Parent passes <code>data</code> to child</li>
+							<li>Child receives it as a <code>prop</code></li>
+							<li>Parent changes <code>data</code>, <code>prop</code> changes in child *</li>
+							<li>Child can't directly alter its own <code>props</code></li>
+						</ul>
+					</section>
+
+					<section>
+						<h3>Props 2/2</h3>
+						<blockquote>A child component needs to explicitly declare the props it expects to receive using the props option</blockquote>
+						<small><a href="https://vuejs.org/v2/guide/components.html#Props" target="_blank">Docs</a></small>
+
+						<p>
+							* Two different type of props: dynamic &amp; static
+						</p>
+					</section>
+
+					<section>
+						<h3>Computed properties 1/2</h3>
+						<ul>
+							<li>Return a property, based on other <code>props</code> or <code>data</code></li>
+							<li>Computed properties are reactive</li>
+						</ul>
+					</section>
+
+					<section>
+						<h3>Computed properties 2/2</h3>
+						<pre><code class="javascript" data-trim contenteditable>
+							// Component JS
+							data() {
+							  return {
+							    firstName: 'Bert',
+							    lastName: 'Stijgerpijp',
+							  };
+							},
+
+							computed: {
+							  fullName() {
+							    return `${this.firstName} ${this.lastName}`;
+							  },
+							},
+						</code></pre>
+
+						<pre><code class="html" data-trim contenteditable>
+							// HTML
+							{{ fullName }}
+						</code></pre>
+					</section>
+
+					<section>
+						<a href="http://codepen.io/demotime/pen/dvQedZ" target="_blank">Demo data &amp; props</a>
+					</section>
+				</section>
+
+				<section>
+					<h2>Bindings</h2>
+					<ul>
+						<li><b>events:</b> <br /><small>Easily bind click, input, etc events on elements</small></li>
+						<li><b>classes:</b> <br /><small>Add or remove classes based on the data</small></li>
+						<li><b>states:</b> <br /><small>Display or hide elements based on the data</small></li>
+						<li><b>model:</b> <br /><small>Bind a form input directy to a data property</small></li>
+					</ul>
+					<p><a href="http://codepen.io/demotime/pen/mWQjqO" target="_blank">Bindings demo</a></p>
+
+				</section>
+
+				<section>
+					<h2>Tips &amp; tricks</h2>
+					<ul>
+						<li>
+							<code>v-cloak</code> attribute &amp; style <br />
+							<small>Hide HTML until <code>Vue</code> rendered the component (<a href="https://vuejs.org/v2/api/#v-cloak" target="_blank">docs</a>)</small>
+						</li>
+
+						<li>
+							<code>inline-template</code> attribute <br />
+							<small>Bind components to existing DOM elements (<a href="https://vuejs.org/v2/guide/components.html#Inline-Templates" target="_blank">docs</a>)</small>
+						</li>
+
+						<li>
+							Vue Devtools<br />
+							<small>Extremely handy tool for Chrome to inspect components and their data / props (<a href="https://github.com/vuejs/vue-devtools" target="_blank">Github</a>)</small>
+						</li>
+
+						
+					</ul>
+				</section>
+
+				<section>
+					<h2>Bonus examples</h2>
+					<ul>
+						<li><a href="http://codepen.io/demotime/pen/YZRvJo" target="_blank">List rendering</a></li>
+						<li><a href="http://codepen.io/demotime/pen/VpVGZp" target="_blank">Movie search</a></li>
+					</ul>
+
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				width: 1024,
+				history: true,
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
