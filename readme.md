@@ -15,7 +15,6 @@
   * states
 * Tips & tricks
 * Bonus examples
-* Questions?
 
 ## Intro
 * Basics of <code>Vue</code> 🚀
