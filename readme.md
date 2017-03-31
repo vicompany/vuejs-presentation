@@ -116,7 +116,7 @@ new Vue({
 // Component JS
 data() {
   return {
-    firstName: 'Bert',
+    firstName: 'Bertus',
     lastName: 'Stijgerpijp',
   };
 },
